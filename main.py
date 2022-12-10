@@ -1,6 +1,4 @@
 import csv
-
-
 def change_values(lista):
 
     for dicionario in lista:
@@ -60,13 +58,45 @@ def csv_to_list(path):
 
 
 def main():
-    path = str(input("Digite o caminho do arquivo csv: "))
+    menu = 0
 
-    lista = csv_to_list(path)
+    while menu != 3:
+        menu = int(input("---------------- MENU ----------------\n"
+                         "DIGITE '1' PARA CALCULAR SUPORTE\n"
+                         "DIGITE '2' PARA CALCULAR CONFIANÇA\n"
+                         "DIGITE '3' PARA SAIR\n"))
 
-    keys = list(lista[0].keys())
+        if menu == 1:
+            path = str(input("Digite o caminho do arquivo csv: "))
+            lista = csv_to_list(path)
+            keys = list(lista[0].keys())
+            show_keys(keys)
 
-    show_keys(keys)
+            print("ATENÇÃO: O código do item é o seu número\n")
+            cod_um = int(input("Informe o código do primeiro item: \n"))
+            cod_dois = int(input("Informe o código do segundo item: \n"))
+
+            suporte = calcular_suporte(lista, keys[cod_um], keys[cod_dois])
+
+            print(f'O valor do suporte é: {suporte}')
+
+        elif menu == 2:
+            path = str(input("Digite o caminho do arquivo csv: "))
+            lista = csv_to_list(path)
+            keys = list(lista[0].keys())
+            show_keys(keys)
+
+            print("ATENÇÃO: O código do item é o seu número\n")
+            cod_um = int(input("Informe o código do primeiro item: \n"))
+            cod_dois = int(input("Informe o código do segundo item: \n"))
+
+            confianca = calcular_confianca(lista, keys[cod_um], keys[cod_dois])
+
+            print(f'O valor do confiança é: {confianca}')
+        elif menu == 3:
+            print("Finalizando a aplicação...")
+        else:
+            print("Você escolheu um número diferente do que está no MENU")
 
 
 main()
