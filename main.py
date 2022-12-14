@@ -1,6 +1,7 @@
 import csv
-def change_values(lista):
 
+
+def change_values(lista):
     for dicionario in lista:
         for chave, valor in dicionario.items():
             if valor == "sim":
@@ -20,22 +21,20 @@ def show_keys(keys):
 
 
 def calcular_suporte(lista, key1, key2):
-
     quant_key1 = list(filter(lambda item: item[key1] == 1, lista)).__len__()
 
     quant_key2 = list(filter(lambda item: item[key2] == 1, lista)).__len__()
 
-    suporte = (quant_key1+quant_key2)/lista.__len__()
+    suporte = (quant_key1 + quant_key2) / lista.__len__()
     return suporte
 
 
 def calcular_confianca(lista, key1, key2):
-
     quant_key1 = list(filter(lambda item: item[key1] == 1, lista)).__len__()
 
     quant_key2 = list(filter(lambda item: item[key2] == 1, lista)).__len__()
 
-    confianca = (quant_key1+quant_key2)/quant_key1
+    confianca = (quant_key1 + quant_key2) / quant_key1
     return confianca
 
 
@@ -55,6 +54,27 @@ def csv_to_list(path):
     change_values(dicts)
 
     return dicts
+
+
+def main2():
+    suporteminimo = 0.7
+
+    path = str(input("Digite o caminho do arquivo csv: "))
+    lista = csv_to_list(path)
+    keys = list(lista[0].keys())
+    del (keys[0])
+
+    listainvertida = keys[::-1]
+
+    for x in keys:
+        for y in listainvertida:
+            if x != y:
+                suporte = calcular_suporte(lista, x, y)
+                if suporte == suporteminimo:
+                    confianca = calcular_confianca(lista, x, y)
+                    print(
+                        f'\nO suporte minimo ({suporte}) foi alcançado pelos itens {x} e {y}.\n Sendo assim o cálculo '
+                        f'da confiança desses itens foi: {confianca}')
 
 
 def main():
@@ -103,4 +123,4 @@ def main():
             print("Você escolheu um número diferente do que está no MENU")
 
 
-main()
+main2()
